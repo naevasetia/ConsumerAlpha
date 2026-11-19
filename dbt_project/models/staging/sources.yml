@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_data
+    schema: raw
+    tables:
+      - name: fred_observations
+      - name: google_trends
+      - name: reddit_daily_sentiment
+      - name: etf_daily_prices
