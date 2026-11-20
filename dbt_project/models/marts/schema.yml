@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: dim_retail_categories
+    description: "Dimension table mapping FRED/Census MRTS retail codes to business segments."
+    columns:
+      - name: category_code
+        tests:
+          - unique
+          - not_null
+          - accepted_values:
+              values: ['RSAFS', 'RSGMS', 'RSFHFS', 'RSEAS', 'RSDBS']
+
+  - name: fct_retail_signals_monthly
+    description: "Monthly feature and target mart aligned to prevent look-ahead bias."
+    columns:
+      - name: month_date
+        tests:
+          - not_null
+      - name: category_code
+        tests:
+          - not_null
