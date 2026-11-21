@@ -3,10 +3,11 @@ consumeralpha:
   outputs:
     dev:
       type: postgres
-      host:     "{{ env_var('POSTGRES_HOST', 'localhost') }}"
-      user:     "{{ env_var('POSTGRES_USER', 'consumer_admin') }}"
-      password: "{{ env_var('POSTGRES_PASSWORD', 'consumer_pass_2026') }}"
-      port:     "{{ env_var('POSTGRES_PORT', '5432') | int }}"
-      dbname:   "{{ env_var('POSTGRES_DB', 'consumeralpha') }}"
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      user: "{{ env_var('POSTGRES_USER', 'consumer_admin') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'consumeralpha') }}"
       schema: public
       threads: 4
+      sslmode: "{{ env_var('POSTGRES_SSLMODE', 'prefer') }}"

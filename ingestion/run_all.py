@@ -2,6 +2,11 @@ import sys
 import logging
 from ingestion import fetch_fred_census, fetch_trends, fetch_reddit, fetch_market
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
+
 logger = logging.getLogger("run_all")
 
 def main():

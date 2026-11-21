@@ -5,8 +5,8 @@ python-dotenv==1.0.1
 SQLAlchemy==2.0.36
 psycopg2-binary==2.9.10
 trendspy==0.1.6
-yfinance
-curl_cffi
+yfinance==0.2.66
+curl_cffi==0.13.0
 vaderSentiment==3.3.2
 statsmodels==0.14.4
 scikit-learn==1.5.2

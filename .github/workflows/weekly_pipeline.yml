@@ -1,0 +1,53 @@
+name: ConsumerAlpha Weekly Pipeline
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Every Monday at 06:00 UTC
+  workflow_dispatch:        # Also triggerable manually from GitHub UI
+
+jobs:
+  run-elt-and-forecast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run incremental data ingestion
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          python -m ingestion.run_all --incremental
+
+      - name: Run dbt models and data quality tests
+        working-directory: dbt_project
+        env:
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_SSLMODE: require
+        run: |
+          dbt run --profiles-dir .
+          dbt test --profiles-dir .
+
+      - name: Run Granger diagnostics, backtest, and live nowcast
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          python -m modeling.stationarity_granger
+          python -m modeling.train_backtest
+          python -m modeling.generate_forecast
