@@ -17,14 +17,19 @@ The project combines data engineering, time-series analysis, statistical diagnos
 
 ## Dashboard Preview
 
+### Overview
+![Overview](assets/dashboard.png)
+
 ### Executive Nowcast
 ![Executive Nowcast](assets/executive-nowcast.png)
 
 ### Signal Attribution
-![Signal Attribution](assets/signal-attribution.png)
+![Signal Attribution](assets/signal-attribution-1.png)
+![Signal Attribution](assets/signal-attribution-2.png)
 
 ### Backtest Diagnostics
-![Backtest Diagnostics](assets/backtest-diagnostics.png)
+![Backtest Diagnostics](assets/backtest-diagnostics-1.png)
+![Backtest Diagnostics](assets/backtest-diagnostics-2.png)
 
 ---
 
