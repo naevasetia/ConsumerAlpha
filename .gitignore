@@ -10,3 +10,4 @@ dbt_project/logs/
 dbt_project/.user.yml
 consumeralpha.dump
 .DS_Store
+.streamlit/secrets.toml
